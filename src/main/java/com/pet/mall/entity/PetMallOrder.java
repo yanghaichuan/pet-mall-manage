@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
 
-public class NewBeeMallOrder {
+public class PetMallOrder {
     private Long orderId;
 
     private String orderNo;

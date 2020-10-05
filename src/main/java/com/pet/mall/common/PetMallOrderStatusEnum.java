@@ -6,7 +6,7 @@ package com.pet.mall.common;
 
  * @apiNote 订单状态:0.待支付 1.已支付 2.配货完成 3:出库成功 4.交易成功 -1.手动关闭 -2.超时关闭 -3.商家关闭
  */
-public enum NewBeeMallOrderStatusEnum {
+public enum PetMallOrderStatusEnum {
 
     DEFAULT(-9, "ERROR"),
     ORDER_PRE_PAY(0, "待支付"),
@@ -22,15 +22,15 @@ public enum NewBeeMallOrderStatusEnum {
 
     private String name;
 
-    NewBeeMallOrderStatusEnum(int orderStatus, String name) {
+    PetMallOrderStatusEnum(int orderStatus, String name) {
         this.orderStatus = orderStatus;
         this.name = name;
     }
 
-    public static NewBeeMallOrderStatusEnum getNewBeeMallOrderStatusEnumByStatus(int orderStatus) {
-        for (NewBeeMallOrderStatusEnum newBeeMallOrderStatusEnum : NewBeeMallOrderStatusEnum.values()) {
-            if (newBeeMallOrderStatusEnum.getOrderStatus() == orderStatus) {
-                return newBeeMallOrderStatusEnum;
+    public static PetMallOrderStatusEnum getNewBeeMallOrderStatusEnumByStatus(int orderStatus) {
+        for (PetMallOrderStatusEnum petMallOrderStatusEnum : PetMallOrderStatusEnum.values()) {
+            if (petMallOrderStatusEnum.getOrderStatus() == orderStatus) {
+                return petMallOrderStatusEnum;
             }
         }
         return DEFAULT;

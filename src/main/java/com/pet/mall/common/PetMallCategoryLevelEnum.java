@@ -6,7 +6,7 @@ package com.pet.mall.common;
 
  * @apiNote 分类级别
  */
-public enum NewBeeMallCategoryLevelEnum {
+public enum PetMallCategoryLevelEnum {
 
     DEFAULT(0, "ERROR"),
     LEVEL_ONE(1, "一级分类"),
@@ -17,15 +17,15 @@ public enum NewBeeMallCategoryLevelEnum {
 
     private String name;
 
-    NewBeeMallCategoryLevelEnum(int level, String name) {
+    PetMallCategoryLevelEnum(int level, String name) {
         this.level = level;
         this.name = name;
     }
 
-    public static NewBeeMallCategoryLevelEnum getNewBeeMallOrderStatusEnumByLevel(int level) {
-        for (NewBeeMallCategoryLevelEnum newBeeMallCategoryLevelEnum : NewBeeMallCategoryLevelEnum.values()) {
-            if (newBeeMallCategoryLevelEnum.getLevel() == level) {
-                return newBeeMallCategoryLevelEnum;
+    public static PetMallCategoryLevelEnum getNewBeeMallOrderStatusEnumByLevel(int level) {
+        for (PetMallCategoryLevelEnum petMallCategoryLevelEnum : PetMallCategoryLevelEnum.values()) {
+            if (petMallCategoryLevelEnum.getLevel() == level) {
+                return petMallCategoryLevelEnum;
             }
         }
         return DEFAULT;

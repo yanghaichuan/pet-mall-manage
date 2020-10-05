@@ -1,7 +1,7 @@
 
 package com.pet.mall.controller.admin;
 
-import com.pet.mall.service.NewBeeMallUserService;
+import com.pet.mall.service.PetMallUserService;
 import com.pet.mall.util.PageQueryUtil;
 import com.pet.mall.util.Result;
 import com.pet.mall.util.ResultGenerator;
@@ -18,10 +18,10 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/admin")
-public class NewBeeMallUserController {
+public class PetMallUserController {
 
     @Resource
-    private NewBeeMallUserService newBeeMallUserService;
+    private PetMallUserService petMallUserService;
 
     @GetMapping("/users")
     public String usersPage(HttpServletRequest request) {
@@ -39,7 +39,7 @@ public class NewBeeMallUserController {
             return ResultGenerator.genFailResult("参数异常！");
         }
         PageQueryUtil pageUtil = new PageQueryUtil(params);
-        return ResultGenerator.genSuccessResult(newBeeMallUserService.getNewBeeMallUsersPage(pageUtil));
+        return ResultGenerator.genSuccessResult(petMallUserService.getNewBeeMallUsersPage(pageUtil));
     }
 
     /**
@@ -54,7 +54,7 @@ public class NewBeeMallUserController {
         if (lockStatus != 0 && lockStatus != 1) {
             return ResultGenerator.genFailResult("操作非法！");
         }
-        if (newBeeMallUserService.lockUsers(ids, lockStatus)) {
+        if (petMallUserService.lockUsers(ids, lockStatus)) {
             return ResultGenerator.genSuccessResult();
         } else {
             return ResultGenerator.genFailResult("禁用失败");

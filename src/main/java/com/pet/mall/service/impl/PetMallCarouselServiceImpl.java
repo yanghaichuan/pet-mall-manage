@@ -4,7 +4,7 @@ package com.pet.mall.service.impl;
 import com.pet.mall.common.ServiceResultEnum;
 import com.pet.mall.dao.CarouselMapper;
 import com.pet.mall.entity.Carousel;
-import com.pet.mall.service.NewBeeMallCarouselService;
+import com.pet.mall.service.PetMallCarouselService;
 import com.pet.mall.util.PageQueryUtil;
 import com.pet.mall.util.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class NewBeeMallCarouselServiceImpl implements NewBeeMallCarouselService {
+public class PetMallCarouselServiceImpl implements PetMallCarouselService {
 
     @Autowired
     private CarouselMapper carouselMapper;

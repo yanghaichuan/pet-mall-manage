@@ -4,7 +4,7 @@ package com.pet.mall.service.impl;
 import com.pet.mall.common.ServiceResultEnum;
 import com.pet.mall.dao.GoodsCategoryMapper;
 import com.pet.mall.entity.GoodsCategory;
-import com.pet.mall.service.NewBeeMallCategoryService;
+import com.pet.mall.service.PetMallCategoryService;
 import com.pet.mall.util.PageQueryUtil;
 import com.pet.mall.util.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class NewBeeMallCategoryServiceImpl implements NewBeeMallCategoryService {
+public class PetMallCategoryServiceImpl implements PetMallCategoryService {
 
     @Autowired
     private GoodsCategoryMapper goodsCategoryMapper;

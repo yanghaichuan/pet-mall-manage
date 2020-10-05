@@ -1,13 +1,13 @@
 
 package com.pet.mall.service;
 
-import com.pet.mall.entity.NewBeeMallGoods;
+import com.pet.mall.entity.PetMallGoods;
 import com.pet.mall.util.PageQueryUtil;
 import com.pet.mall.util.PageResult;
 
 import java.util.List;
 
-public interface NewBeeMallGoodsService {
+public interface PetMallGoodsService {
     /**
      * 后台分页
      *
@@ -22,15 +22,15 @@ public interface NewBeeMallGoodsService {
      * @param goods
      * @return
      */
-    String saveNewBeeMallGoods(NewBeeMallGoods goods);
+    String saveNewBeeMallGoods(PetMallGoods goods);
 
     /**
      * 批量新增商品数据
      *
-     * @param newBeeMallGoodsList
+     * @param petMallGoodsList
      * @return
      */
-    void batchSaveNewBeeMallGoods(List<NewBeeMallGoods> newBeeMallGoodsList);
+    void batchSaveNewBeeMallGoods(List<PetMallGoods> petMallGoodsList);
 
     /**
      * 修改商品信息
@@ -38,7 +38,7 @@ public interface NewBeeMallGoodsService {
      * @param goods
      * @return
      */
-    String updateNewBeeMallGoods(NewBeeMallGoods goods);
+    String updateNewBeeMallGoods(PetMallGoods goods);
 
     /**
      * 获取商品详情
@@ -46,7 +46,7 @@ public interface NewBeeMallGoodsService {
      * @param id
      * @return
      */
-    NewBeeMallGoods getNewBeeMallGoodsById(Long id);
+    PetMallGoods getNewBeeMallGoodsById(Long id);
 
     /**
      * 批量修改销售状态(上架下架)

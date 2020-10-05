@@ -4,7 +4,7 @@ package com.pet.mall.service.impl;
 import com.pet.mall.common.ServiceResultEnum;
 import com.pet.mall.dao.IndexConfigMapper;
 import com.pet.mall.entity.IndexConfig;
-import com.pet.mall.service.NewBeeMallIndexConfigService;
+import com.pet.mall.service.PetMallIndexConfigService;
 import com.pet.mall.util.PageQueryUtil;
 import com.pet.mall.util.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class NewBeeMallIndexConfigServiceImpl implements NewBeeMallIndexConfigService {
+public class PetMallIndexConfigServiceImpl implements PetMallIndexConfigService {
 
     @Autowired
     private IndexConfigMapper indexConfigMapper;

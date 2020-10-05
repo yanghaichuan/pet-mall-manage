@@ -1,10 +1,10 @@
 
 package com.pet.mall.controller.admin;
 
-import com.pet.mall.common.NewBeeMallCategoryLevelEnum;
+import com.pet.mall.common.PetMallCategoryLevelEnum;
 import com.pet.mall.common.ServiceResultEnum;
 import com.pet.mall.entity.GoodsCategory;
-import com.pet.mall.service.NewBeeMallCategoryService;
+import com.pet.mall.service.PetMallCategoryService;
 import com.pet.mall.util.PageQueryUtil;
 import com.pet.mall.util.Result;
 import com.pet.mall.util.ResultGenerator;
@@ -22,10 +22,10 @@ import java.util.*;
  */
 @Controller
 @RequestMapping("/admin")
-public class NewBeeMallGoodsCategoryController {
+public class PetMallGoodsCategoryController {
 
     @Resource
-    private NewBeeMallCategoryService newBeeMallCategoryService;
+    private PetMallCategoryService petMallCategoryService;
 
     @GetMapping("/categories")
     public String categoriesPage(HttpServletRequest request, @RequestParam("categoryLevel") Byte categoryLevel, @RequestParam("parentId") Long parentId, @RequestParam("backParentId") Long backParentId) {
@@ -49,7 +49,7 @@ public class NewBeeMallGoodsCategoryController {
             return ResultGenerator.genFailResult("参数异常！");
         }
         PageQueryUtil pageUtil = new PageQueryUtil(params);
-        return ResultGenerator.genSuccessResult(newBeeMallCategoryService.getCategorisPage(pageUtil));
+        return ResultGenerator.genSuccessResult(petMallCategoryService.getCategorisPage(pageUtil));
     }
 
     /**
@@ -61,26 +61,26 @@ public class NewBeeMallGoodsCategoryController {
         if (categoryId == null || categoryId < 1) {
             return ResultGenerator.genFailResult("缺少参数！");
         }
-        GoodsCategory category = newBeeMallCategoryService.getGoodsCategoryById(categoryId);
+        GoodsCategory category = petMallCategoryService.getGoodsCategoryById(categoryId);
         //既不是一级分类也不是二级分类则为不返回数据
-        if (category == null || category.getCategoryLevel() == NewBeeMallCategoryLevelEnum.LEVEL_THREE.getLevel()) {
+        if (category == null || category.getCategoryLevel() == PetMallCategoryLevelEnum.LEVEL_THREE.getLevel()) {
             return ResultGenerator.genFailResult("参数异常！");
         }
         Map categoryResult = new HashMap(2);
-        if (category.getCategoryLevel() == NewBeeMallCategoryLevelEnum.LEVEL_ONE.getLevel()) {
+        if (category.getCategoryLevel() == PetMallCategoryLevelEnum.LEVEL_ONE.getLevel()) {
             //如果是一级分类则返回当前一级分类下的所有二级分类，以及二级分类列表中第一条数据下的所有三级分类列表
             //查询一级分类列表中第一个实体的所有二级分类
-            List<GoodsCategory> secondLevelCategories = newBeeMallCategoryService.selectByLevelAndParentIdsAndNumber(Collections.singletonList(categoryId), NewBeeMallCategoryLevelEnum.LEVEL_TWO.getLevel());
+            List<GoodsCategory> secondLevelCategories = petMallCategoryService.selectByLevelAndParentIdsAndNumber(Collections.singletonList(categoryId), PetMallCategoryLevelEnum.LEVEL_TWO.getLevel());
             if (!CollectionUtils.isEmpty(secondLevelCategories)) {
                 //查询二级分类列表中第一个实体的所有三级分类
-                List<GoodsCategory> thirdLevelCategories = newBeeMallCategoryService.selectByLevelAndParentIdsAndNumber(Collections.singletonList(secondLevelCategories.get(0).getCategoryId()), NewBeeMallCategoryLevelEnum.LEVEL_THREE.getLevel());
+                List<GoodsCategory> thirdLevelCategories = petMallCategoryService.selectByLevelAndParentIdsAndNumber(Collections.singletonList(secondLevelCategories.get(0).getCategoryId()), PetMallCategoryLevelEnum.LEVEL_THREE.getLevel());
                 categoryResult.put("secondLevelCategories", secondLevelCategories);
                 categoryResult.put("thirdLevelCategories", thirdLevelCategories);
             }
         }
-        if (category.getCategoryLevel() == NewBeeMallCategoryLevelEnum.LEVEL_TWO.getLevel()) {
+        if (category.getCategoryLevel() == PetMallCategoryLevelEnum.LEVEL_TWO.getLevel()) {
             //如果是二级分类则返回当前分类下的所有三级分类列表
-            List<GoodsCategory> thirdLevelCategories = newBeeMallCategoryService.selectByLevelAndParentIdsAndNumber(Collections.singletonList(categoryId), NewBeeMallCategoryLevelEnum.LEVEL_THREE.getLevel());
+            List<GoodsCategory> thirdLevelCategories = petMallCategoryService.selectByLevelAndParentIdsAndNumber(Collections.singletonList(categoryId), PetMallCategoryLevelEnum.LEVEL_THREE.getLevel());
             categoryResult.put("thirdLevelCategories", thirdLevelCategories);
         }
         return ResultGenerator.genSuccessResult(categoryResult);
@@ -98,7 +98,7 @@ public class NewBeeMallGoodsCategoryController {
                 || Objects.isNull(goodsCategory.getCategoryRank())) {
             return ResultGenerator.genFailResult("参数异常！");
         }
-        String result = newBeeMallCategoryService.saveCategory(goodsCategory);
+        String result = petMallCategoryService.saveCategory(goodsCategory);
         if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {
             return ResultGenerator.genSuccessResult();
         } else {
@@ -120,7 +120,7 @@ public class NewBeeMallGoodsCategoryController {
                 || Objects.isNull(goodsCategory.getCategoryRank())) {
             return ResultGenerator.genFailResult("参数异常！");
         }
-        String result = newBeeMallCategoryService.updateGoodsCategory(goodsCategory);
+        String result = petMallCategoryService.updateGoodsCategory(goodsCategory);
         if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {
             return ResultGenerator.genSuccessResult();
         } else {
@@ -134,7 +134,7 @@ public class NewBeeMallGoodsCategoryController {
     @GetMapping("/categories/info/{id}")
     @ResponseBody
     public Result info(@PathVariable("id") Long id) {
-        GoodsCategory goodsCategory = newBeeMallCategoryService.getGoodsCategoryById(id);
+        GoodsCategory goodsCategory = petMallCategoryService.getGoodsCategoryById(id);
         if (goodsCategory == null) {
             return ResultGenerator.genFailResult("未查询到数据");
         }
@@ -150,7 +150,7 @@ public class NewBeeMallGoodsCategoryController {
         if (ids.length < 1) {
             return ResultGenerator.genFailResult("参数异常！");
         }
-        if (newBeeMallCategoryService.deleteBatch(ids)) {
+        if (petMallCategoryService.deleteBatch(ids)) {
             return ResultGenerator.genSuccessResult();
         } else {
             return ResultGenerator.genFailResult("删除失败");

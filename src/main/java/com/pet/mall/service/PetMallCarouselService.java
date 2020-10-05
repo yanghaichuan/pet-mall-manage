@@ -5,7 +5,7 @@ import com.pet.mall.entity.Carousel;
 import com.pet.mall.util.PageQueryUtil;
 import com.pet.mall.util.PageResult;
 
-public interface NewBeeMallCarouselService {
+public interface PetMallCarouselService {
     /**
      * 后台分页
      *

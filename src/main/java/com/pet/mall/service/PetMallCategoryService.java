@@ -7,7 +7,7 @@ import com.pet.mall.util.PageResult;
 
 import java.util.List;
 
-public interface NewBeeMallCategoryService {
+public interface PetMallCategoryService {
     /**
      * 后台分页
      *

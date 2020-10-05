@@ -2,9 +2,9 @@
 package com.pet.mall.service.impl;
 
 import com.pet.mall.common.ServiceResultEnum;
-import com.pet.mall.dao.NewBeeMallGoodsMapper;
-import com.pet.mall.entity.NewBeeMallGoods;
-import com.pet.mall.service.NewBeeMallGoodsService;
+import com.pet.mall.dao.PetMallGoodsMapper;
+import com.pet.mall.entity.PetMallGoods;
+import com.pet.mall.service.PetMallGoodsService;
 import com.pet.mall.util.PageQueryUtil;
 import com.pet.mall.util.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,21 +15,21 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class NewBeeMallGoodsServiceImpl implements NewBeeMallGoodsService {
+public class PetMallGoodsServiceImpl implements PetMallGoodsService {
 
     @Autowired
-    private NewBeeMallGoodsMapper goodsMapper;
+    private PetMallGoodsMapper goodsMapper;
 
     @Override
     public PageResult getNewBeeMallGoodsPage(PageQueryUtil pageUtil) {
-        List<NewBeeMallGoods> goodsList = goodsMapper.findNewBeeMallGoodsList(pageUtil);
+        List<PetMallGoods> goodsList = goodsMapper.findNewBeeMallGoodsList(pageUtil);
         int total = goodsMapper.getTotalNewBeeMallGoods(pageUtil);
         PageResult pageResult = new PageResult(goodsList, total, pageUtil.getLimit(), pageUtil.getPage());
         return pageResult;
     }
 
     @Override
-    public String saveNewBeeMallGoods(NewBeeMallGoods goods) {
+    public String saveNewBeeMallGoods(PetMallGoods goods) {
         if (goodsMapper.insertSelective(goods) > 0) {
             return ServiceResultEnum.SUCCESS.getResult();
         }
@@ -37,15 +37,15 @@ public class NewBeeMallGoodsServiceImpl implements NewBeeMallGoodsService {
     }
 
     @Override
-    public void batchSaveNewBeeMallGoods(List<NewBeeMallGoods> newBeeMallGoodsList) {
-        if (!CollectionUtils.isEmpty(newBeeMallGoodsList)) {
-            goodsMapper.batchInsert(newBeeMallGoodsList);
+    public void batchSaveNewBeeMallGoods(List<PetMallGoods> petMallGoodsList) {
+        if (!CollectionUtils.isEmpty(petMallGoodsList)) {
+            goodsMapper.batchInsert(petMallGoodsList);
         }
     }
 
     @Override
-    public String updateNewBeeMallGoods(NewBeeMallGoods goods) {
-        NewBeeMallGoods temp = goodsMapper.selectByPrimaryKey(goods.getGoodsId());
+    public String updateNewBeeMallGoods(PetMallGoods goods) {
+        PetMallGoods temp = goodsMapper.selectByPrimaryKey(goods.getGoodsId());
         if (temp == null) {
             return ServiceResultEnum.DATA_NOT_EXIST.getResult();
         }
@@ -57,7 +57,7 @@ public class NewBeeMallGoodsServiceImpl implements NewBeeMallGoodsService {
     }
 
     @Override
-    public NewBeeMallGoods getNewBeeMallGoodsById(Long id) {
+    public PetMallGoods getNewBeeMallGoodsById(Long id) {
         return goodsMapper.selectByPrimaryKey(id);
     }
     

@@ -1,12 +1,12 @@
 
 package com.pet.mall.common;
 
-public class NewBeeMallException extends RuntimeException {
+public class PetMallException extends RuntimeException {
 
-    public NewBeeMallException() {
+    public PetMallException() {
     }
 
-    public NewBeeMallException(String message) {
+    public PetMallException(String message) {
         super(message);
     }
 
@@ -16,7 +16,7 @@ public class NewBeeMallException extends RuntimeException {
      * @param message
      */
     public static void fail(String message) {
-        throw new NewBeeMallException(message);
+        throw new PetMallException(message);
     }
 
 }

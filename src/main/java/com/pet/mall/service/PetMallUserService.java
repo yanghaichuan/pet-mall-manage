@@ -4,7 +4,7 @@ package com.pet.mall.service;
 import com.pet.mall.util.PageQueryUtil;
 import com.pet.mall.util.PageResult;
 
-public interface NewBeeMallUserService {
+public interface PetMallUserService {
     /**
      * 后台分页
      *

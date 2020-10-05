@@ -3,7 +3,7 @@ package com.pet.mall.controller.admin;
 
 import com.pet.mall.common.ServiceResultEnum;
 import com.pet.mall.entity.Carousel;
-import com.pet.mall.service.NewBeeMallCarouselService;
+import com.pet.mall.service.PetMallCarouselService;
 import com.pet.mall.util.PageQueryUtil;
 import com.pet.mall.util.Result;
 import com.pet.mall.util.ResultGenerator;
@@ -21,10 +21,10 @@ import java.util.Objects;
  */
 @Controller
 @RequestMapping("/admin")
-public class NewBeeMallCarouselController {
+public class PetMallCarouselController {
 
     @Resource
-    NewBeeMallCarouselService newBeeMallCarouselService;
+    PetMallCarouselService petMallCarouselService;
 
     @GetMapping("/carousels")
     public String carouselPage(HttpServletRequest request) {
@@ -42,7 +42,7 @@ public class NewBeeMallCarouselController {
             return ResultGenerator.genFailResult("参数异常！");
         }
         PageQueryUtil pageUtil = new PageQueryUtil(params);
-        return ResultGenerator.genSuccessResult(newBeeMallCarouselService.getCarouselPage(pageUtil));
+        return ResultGenerator.genSuccessResult(petMallCarouselService.getCarouselPage(pageUtil));
     }
 
     /**
@@ -55,7 +55,7 @@ public class NewBeeMallCarouselController {
                 || Objects.isNull(carousel.getCarouselRank())) {
             return ResultGenerator.genFailResult("参数异常！");
         }
-        String result = newBeeMallCarouselService.saveCarousel(carousel);
+        String result = petMallCarouselService.saveCarousel(carousel);
         if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {
             return ResultGenerator.genSuccessResult();
         } else {
@@ -75,7 +75,7 @@ public class NewBeeMallCarouselController {
                 || Objects.isNull(carousel.getCarouselRank())) {
             return ResultGenerator.genFailResult("参数异常！");
         }
-        String result = newBeeMallCarouselService.updateCarousel(carousel);
+        String result = petMallCarouselService.updateCarousel(carousel);
         if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {
             return ResultGenerator.genSuccessResult();
         } else {
@@ -89,7 +89,7 @@ public class NewBeeMallCarouselController {
     @GetMapping("/carousels/info/{id}")
     @ResponseBody
     public Result info(@PathVariable("id") Integer id) {
-        Carousel carousel = newBeeMallCarouselService.getCarouselById(id);
+        Carousel carousel = petMallCarouselService.getCarouselById(id);
         if (carousel == null) {
             return ResultGenerator.genFailResult(ServiceResultEnum.DATA_NOT_EXIST.getResult());
         }
@@ -105,7 +105,7 @@ public class NewBeeMallCarouselController {
         if (ids.length < 1) {
             return ResultGenerator.genFailResult("参数异常！");
         }
-        if (newBeeMallCarouselService.deleteBatch(ids)) {
+        if (petMallCarouselService.deleteBatch(ids)) {
             return ResultGenerator.genSuccessResult();
         } else {
             return ResultGenerator.genFailResult("删除失败");

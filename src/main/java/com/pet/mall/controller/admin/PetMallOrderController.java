@@ -2,9 +2,9 @@
 package com.pet.mall.controller.admin;
 
 import com.pet.mall.common.ServiceResultEnum;
-import com.pet.mall.entity.NewBeeMallOrder;
-import com.pet.mall.entity.NewBeeMallOrderItem;
-import com.pet.mall.service.NewBeeMallOrderService;
+import com.pet.mall.entity.PetMallOrder;
+import com.pet.mall.entity.PetOrderItem;
+import com.pet.mall.service.PetMallOrderService;
 import com.pet.mall.util.PageQueryUtil;
 import com.pet.mall.util.Result;
 import com.pet.mall.util.ResultGenerator;
@@ -24,10 +24,10 @@ import java.util.Objects;
  */
 @Controller
 @RequestMapping("/admin")
-public class NewBeeMallOrderController {
+public class PetMallOrderController {
 
     @Resource
-    private NewBeeMallOrderService newBeeMallOrderService;
+    private PetMallOrderService petMallOrderService;
 
     @GetMapping("/orders")
     public String ordersPage(HttpServletRequest request) {
@@ -45,7 +45,7 @@ public class NewBeeMallOrderController {
             return ResultGenerator.genFailResult("参数异常！");
         }
         PageQueryUtil pageUtil = new PageQueryUtil(params);
-        return ResultGenerator.genSuccessResult(newBeeMallOrderService.getNewBeeMallOrdersPage(pageUtil));
+        return ResultGenerator.genSuccessResult(petMallOrderService.getNewBeeMallOrdersPage(pageUtil));
     }
 
     /**
@@ -53,14 +53,14 @@ public class NewBeeMallOrderController {
      */
     @RequestMapping(value = "/orders/update", method = RequestMethod.POST)
     @ResponseBody
-    public Result update(@RequestBody NewBeeMallOrder newBeeMallOrder) {
-        if (Objects.isNull(newBeeMallOrder.getTotalPrice())
-                || Objects.isNull(newBeeMallOrder.getOrderId())
-                || newBeeMallOrder.getOrderId() < 1
-                || newBeeMallOrder.getTotalPrice() < 1) {
+    public Result update(@RequestBody PetMallOrder petMallOrder) {
+        if (Objects.isNull(petMallOrder.getTotalPrice())
+                || Objects.isNull(petMallOrder.getOrderId())
+                || petMallOrder.getOrderId() < 1
+                || petMallOrder.getTotalPrice() < 1) {
             return ResultGenerator.genFailResult("参数异常！");
         }
-        String result = newBeeMallOrderService.updateOrderInfo(newBeeMallOrder);
+        String result = petMallOrderService.updateOrderInfo(petMallOrder);
         if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {
             return ResultGenerator.genSuccessResult();
         } else {
@@ -74,7 +74,7 @@ public class NewBeeMallOrderController {
     @GetMapping("/order-items/{id}")
     @ResponseBody
     public Result info(@PathVariable("id") Long id) {
-        List<NewBeeMallOrderItem> orderItems = newBeeMallOrderService.getOrderItems(id);
+        List<PetOrderItem> orderItems = petMallOrderService.getOrderItems(id);
         if (!CollectionUtils.isEmpty(orderItems)) {
             return ResultGenerator.genSuccessResult(orderItems);
         }
@@ -90,7 +90,7 @@ public class NewBeeMallOrderController {
         if (ids.length < 1) {
             return ResultGenerator.genFailResult("参数异常！");
         }
-        String result = newBeeMallOrderService.checkDone(ids);
+        String result = petMallOrderService.checkDone(ids);
         if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {
             return ResultGenerator.genSuccessResult();
         } else {
@@ -107,7 +107,7 @@ public class NewBeeMallOrderController {
         if (ids.length < 1) {
             return ResultGenerator.genFailResult("参数异常！");
         }
-        String result = newBeeMallOrderService.checkOut(ids);
+        String result = petMallOrderService.checkOut(ids);
         if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {
             return ResultGenerator.genSuccessResult();
         } else {
@@ -124,7 +124,7 @@ public class NewBeeMallOrderController {
         if (ids.length < 1) {
             return ResultGenerator.genFailResult("参数异常！");
         }
-        String result = newBeeMallOrderService.closeOrder(ids);
+        String result = petMallOrderService.closeOrder(ids);
         if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {
             return ResultGenerator.genSuccessResult();
         } else {

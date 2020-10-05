@@ -1,14 +1,14 @@
 
 package com.pet.mall.service;
 
-import com.pet.mall.entity.NewBeeMallOrder;
-import com.pet.mall.entity.NewBeeMallOrderItem;
+import com.pet.mall.entity.PetMallOrder;
+import com.pet.mall.entity.PetOrderItem;
 import com.pet.mall.util.PageQueryUtil;
 import com.pet.mall.util.PageResult;
 
 import java.util.List;
 
-public interface NewBeeMallOrderService {
+public interface PetMallOrderService {
     /**
      * 后台分页
      *
@@ -20,10 +20,10 @@ public interface NewBeeMallOrderService {
     /**
      * 订单信息修改
      *
-     * @param newBeeMallOrder
+     * @param petMallOrder
      * @return
      */
-    String updateOrderInfo(NewBeeMallOrder newBeeMallOrder);
+    String updateOrderInfo(PetMallOrder petMallOrder);
 
     /**
      * 配货
@@ -49,5 +49,5 @@ public interface NewBeeMallOrderService {
      */
     String closeOrder(Long[] ids);
 
-    List<NewBeeMallOrderItem> getOrderItems(Long id);
+    List<PetOrderItem> getOrderItems(Long id);
 }

@@ -7,7 +7,7 @@ import com.pet.mall.entity.IndexConfig;
 import com.pet.mall.util.PageQueryUtil;
 import com.pet.mall.util.Result;
 import com.pet.mall.util.ResultGenerator;
-import com.pet.mall.service.NewBeeMallIndexConfigService;
+import com.pet.mall.service.PetMallIndexConfigService;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -22,10 +22,10 @@ import java.util.Objects;
  */
 @Controller
 @RequestMapping("/admin")
-public class NewBeeMallGoodsIndexConfigController {
+public class PetMallGoodsIndexConfigController {
 
     @Resource
-    private NewBeeMallIndexConfigService newBeeMallIndexConfigService;
+    private PetMallIndexConfigService petMallIndexConfigService;
 
     @GetMapping("/indexConfigs")
     public String indexConfigsPage(HttpServletRequest request, @RequestParam("configType") int configType) {
@@ -49,7 +49,7 @@ public class NewBeeMallGoodsIndexConfigController {
             return ResultGenerator.genFailResult("参数异常！");
         }
         PageQueryUtil pageUtil = new PageQueryUtil(params);
-        return ResultGenerator.genSuccessResult(newBeeMallIndexConfigService.getConfigsPage(pageUtil));
+        return ResultGenerator.genSuccessResult(petMallIndexConfigService.getConfigsPage(pageUtil));
     }
 
     /**
@@ -63,7 +63,7 @@ public class NewBeeMallGoodsIndexConfigController {
                 || Objects.isNull(indexConfig.getConfigRank())) {
             return ResultGenerator.genFailResult("参数异常！");
         }
-        String result = newBeeMallIndexConfigService.saveIndexConfig(indexConfig);
+        String result = petMallIndexConfigService.saveIndexConfig(indexConfig);
         if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {
             return ResultGenerator.genSuccessResult();
         } else {
@@ -84,7 +84,7 @@ public class NewBeeMallGoodsIndexConfigController {
                 || Objects.isNull(indexConfig.getConfigRank())) {
             return ResultGenerator.genFailResult("参数异常！");
         }
-        String result = newBeeMallIndexConfigService.updateIndexConfig(indexConfig);
+        String result = petMallIndexConfigService.updateIndexConfig(indexConfig);
         if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {
             return ResultGenerator.genSuccessResult();
         } else {
@@ -98,7 +98,7 @@ public class NewBeeMallGoodsIndexConfigController {
     @GetMapping("/indexConfigs/info/{id}")
     @ResponseBody
     public Result info(@PathVariable("id") Long id) {
-        IndexConfig config = newBeeMallIndexConfigService.getIndexConfigById(id);
+        IndexConfig config = petMallIndexConfigService.getIndexConfigById(id);
         if (config == null) {
             return ResultGenerator.genFailResult("未查询到数据");
         }
@@ -114,7 +114,7 @@ public class NewBeeMallGoodsIndexConfigController {
         if (ids.length < 1) {
             return ResultGenerator.genFailResult("参数异常！");
         }
-        if (newBeeMallIndexConfigService.deleteBatch(ids)) {
+        if (petMallIndexConfigService.deleteBatch(ids)) {
             return ResultGenerator.genSuccessResult();
         } else {
             return ResultGenerator.genFailResult("删除失败");
