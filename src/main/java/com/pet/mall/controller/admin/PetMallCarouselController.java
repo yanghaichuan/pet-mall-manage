@@ -55,6 +55,11 @@ public class PetMallCarouselController {
                 || Objects.isNull(carousel.getCarouselRank())) {
             return ResultGenerator.genFailResult("参数异常！");
         }
+        if(carousel.getCarouselUrl()!=null && carousel.getCarouselUrl().indexOf("upload")>0){
+            String url = carousel.getCarouselUrl().substring(carousel.getCarouselUrl().indexOf("upload")-1,carousel.getCarouselUrl().length());
+            carousel.setCarouselUrl(url);
+            System.out.println(url);
+        }
         String result = petMallCarouselService.saveCarousel(carousel);
         if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {
             return ResultGenerator.genSuccessResult();
@@ -74,6 +79,11 @@ public class PetMallCarouselController {
                 || StringUtils.isEmpty(carousel.getCarouselUrl())
                 || Objects.isNull(carousel.getCarouselRank())) {
             return ResultGenerator.genFailResult("参数异常！");
+        }
+        if(carousel.getCarouselUrl()!=null && carousel.getCarouselUrl().indexOf("upload")>0){
+            String url = carousel.getCarouselUrl().substring(carousel.getCarouselUrl().indexOf("upload")-1,carousel.getCarouselUrl().length());
+            carousel.setCarouselUrl(url);
+            System.out.println(url);
         }
         String result = petMallCarouselService.updateCarousel(carousel);
         if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {

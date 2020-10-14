@@ -150,6 +150,13 @@ public class PetMallGoodsController {
                 || StringUtils.isEmpty(petMallGoods.getGoodsDetailContent())) {
             return ResultGenerator.genFailResult("参数异常！");
         }
+        if(petMallGoods.getGoodsCoverImg()!=null && petMallGoods.getGoodsCoverImg().indexOf("upload")>0){
+            String url = petMallGoods.getGoodsCoverImg().substring(petMallGoods.getGoodsCoverImg().indexOf("upload")-1,petMallGoods.getGoodsCoverImg().length());
+            url=url.replace("upload","goods-img");
+            petMallGoods.setGoodsCoverImg(url);
+            petMallGoods.setGoodsCarousel(url);
+            System.err.println(url);
+        }
         String result = petMallGoodsService.saveNewBeeMallGoods(petMallGoods);
         if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {
             return ResultGenerator.genSuccessResult();
@@ -177,6 +184,13 @@ public class PetMallGoodsController {
                 || StringUtils.isEmpty(petMallGoods.getGoodsCoverImg())
                 || StringUtils.isEmpty(petMallGoods.getGoodsDetailContent())) {
             return ResultGenerator.genFailResult("参数异常！");
+        }
+        if(petMallGoods.getGoodsCoverImg()!=null && petMallGoods.getGoodsCoverImg().indexOf("upload")>0){
+            String url = petMallGoods.getGoodsCoverImg().substring(petMallGoods.getGoodsCoverImg().indexOf("upload")-1,petMallGoods.getGoodsCoverImg().length());
+            url=url.replace("upload","goods-img");
+            petMallGoods.setGoodsCoverImg(url);
+            petMallGoods.setGoodsCarousel(url);
+            System.err.println(url);
         }
         String result = petMallGoodsService.updateNewBeeMallGoods(petMallGoods);
         if (ServiceResultEnum.SUCCESS.getResult().equals(result)) {
