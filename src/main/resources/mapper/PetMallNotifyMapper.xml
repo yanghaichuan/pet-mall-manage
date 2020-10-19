@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pet.mall.dao.PetMallNotifyMapper">
+    <resultMap id="BaseResultMap" type="com.pet.mall.entity.PetMallNotify">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="notify_type" jdbcType="VARCHAR" property="notifyType"/>
+        <result column="notify_text" jdbcType="VARCHAR" property="notifyText"/>
+        <result column="notify_rank" jdbcType="INTEGER" property="notifyRank"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+        <result column="is_deleted" jdbcType="VARCHAR" property="isDeleted"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="create_user" jdbcType="INTEGER" property="createUser"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,
+        notify_type,
+        notify_text,
+        notify_rank,
+        status,
+        is_deleted,
+        createuser,
+        create_time
+  </sql>
+    <select id="selectNotifyList" parameterType="Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from pet_mall_notify
+        where is_deleted = 0
+        order by create_time desc
+    </select>
+
+    <select id="findNotifyList" parameterType="Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from pet_mall_notify
+        where is_deleted = 0
+        order by create_time desc
+        <if test="start!=null and limit!=null">
+            limit #{start},#{limit}
+        </if>
+    </select>
+
+    <select id="getTotalNotify" parameterType="Map" resultType="int">
+        select count(*) from pet_mall_notify
+        where is_deleted = 0
+    </select>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from pet_mall_notify
+        where id = #{id}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from pet_mall_notify
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.pet.mall.entity.Carousel">
+    insert into pet_mall_notify (id, notify_type, notify_text,notify_rank
+      status, is_deleted, create_time, create_user
+      )
+    values (#{id,jdbcType=INTEGER}, #{notifyType,jdbcType=VARCHAR}, #{notifyText,jdbcType=VARCHAR}, #{notifyRank,jdbcType=INTEGER},
+      #{status,jdbcType=VARCHAR}, #{isDeleted,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+      #{createUser,jdbcType=INTEGER}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.pet.mall.entity.Carousel">
+        insert into pet_mall_notify
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="notifyType != null">
+                notify_type,
+            </if>
+            <if test="notifyText != null">
+                notify_text,
+            </if>
+            <if test="notifyRank != null">
+                notify_rank,
+            </if>
+
+            <if test="status != null">
+                status,
+            </if>
+            <if test="isDeleted != null">
+                is_deleted,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="createUser != null">
+                create_user,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="notifyType != null">
+                #{notifyType,jdbcType=VARCHAR},
+            </if>
+            <if test="notifyText != null">
+                #{notifyText,jdbcType=VARCHAR},
+            </if>
+
+            <if test="notifyRank != null">
+                #{notifyRank,jdbcType=INTEGER},
+            </if>
+
+            <if test="status != null">
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="isDeleted != null">
+                #{isDeleted,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUser != null">
+                #{createUser,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.pet.mall.entity.Carousel">
+        update pet_mall_notify
+        <set>
+            <if test="notifyType != null">
+                notify_type = #{notifyType,jdbcType=VARCHAR},
+            </if>
+            <if test="notifyText != null">
+                notify_text = #{notifyText,jdbcType=VARCHAR},
+            </if>
+
+            <if test="notifyRank != null">
+                notify_rank = #{notifyRank,jdbcType=INTEGER},
+            </if>
+
+            <if test="status != null">
+                status = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUser != null">
+                create_user = #{createUser,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.pet.mall.entity.Carousel">
+    update pet_mall_notify
+    set notify_type = #{notifyType,jdbcType=VARCHAR},
+      notify_text = #{notifyText,jdbcType=VARCHAR},
+      notify_rank = #{notifyRank,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      is_deleted = #{isDeleted,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+    <update id="deleteBatch">
+        update pet_mall_notify
+        set is_deleted=1 where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+</mapper>
