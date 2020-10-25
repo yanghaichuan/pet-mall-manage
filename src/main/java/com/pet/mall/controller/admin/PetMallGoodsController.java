@@ -37,8 +37,8 @@ public class PetMallGoodsController {
 
     @GetMapping("/goods")
     public String goodsPage(HttpServletRequest request) {
-        request.setAttribute("path", "newbee_mall_goods");
-        return "admin/newbee_mall_goods";
+        request.setAttribute("path", "goods");
+        return "admin/goods";
     }
 
     @GetMapping("/goods/edit")
@@ -56,7 +56,7 @@ public class PetMallGoodsController {
                 request.setAttribute("secondLevelCategories", secondLevelCategories);
                 request.setAttribute("thirdLevelCategories", thirdLevelCategories);
                 request.setAttribute("path", "goods-edit");
-                return "admin/newbee_mall_goods_edit";
+                return "admin/goods_edit";
             }
         }
         return "error/error_5xx";
@@ -116,7 +116,7 @@ public class PetMallGoodsController {
         }
         request.setAttribute("goods", petMallGoods);
         request.setAttribute("path", "goods-edit");
-        return "admin/newbee_mall_goods_edit";
+        return "admin/goods_edit";
     }
 
     /**

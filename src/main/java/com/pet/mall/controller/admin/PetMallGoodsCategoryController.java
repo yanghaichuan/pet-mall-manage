@@ -32,11 +32,11 @@ public class PetMallGoodsCategoryController {
         if (categoryLevel == null || categoryLevel < 1 || categoryLevel > 3) {
             return "error/error_5xx";
         }
-        request.setAttribute("path", "newbee_mall_category");
+        request.setAttribute("path", "category");
         request.setAttribute("parentId", parentId);
         request.setAttribute("backParentId", backParentId);
         request.setAttribute("categoryLevel", categoryLevel);
-        return "admin/newbee_mall_category";
+        return "admin/category";
     }
 
     /**

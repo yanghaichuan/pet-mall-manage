@@ -10,6 +10,18 @@
         vertical-align: text-top;
         padding-top: 2px;
     }
+
+    a {
+        color: #1baeae;
+        text-decoration: none;
+        background-color: transparent;
+        -webkit-text-decoration-skip: objects;
+    }
+
+    a:hover {
+        color: white;
+        background-color: #1baeae;
+    }
 </style>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -29,21 +41,23 @@
             <div class="container-fluid">
                 <div class="card card-primary card-outline">
                     <div class="card-header">
-                        <h3 class="card-title">轮播图管理</h3>
+                        <h3 class="card-title">订单管理</h3>
                     </div> <!-- /.card-body -->
                     <div class="card-body">
                         <div class="grid-btn">
-                            <button class="btn btn-info" onclick="carouselAdd()"><i
-                                    class="fa fa-plus"></i>&nbsp;新增
+                            <button class="btn btn-info" onclick="orderEdit()"><i
+                                    class="fa fa-pencil-square-o"></i>&nbsp;改价
                             </button>
-                            <button class="btn btn-info" onclick="carouselEdit()"><i
-                                    class="fa fa-pencil-square-o"></i>&nbsp;修改
+                            <button class="btn btn-info" onclick="orderCheckDone()"><i
+                                    class="fa fa-truck"></i>&nbsp;配货完成
                             </button>
-                            <button class="btn btn-danger" onclick="deleteCarousel()"><i
-                                    class="fa fa-trash-o"></i>&nbsp;删除
+                            <button class="btn btn-info" onclick="orderCheckOut()"><i
+                                    class="fa fa-truck"></i>&nbsp;出库
+                            </button>
+                            <button class="btn btn-danger" onclick="closeOrder()"><i
+                                    class="fa fa-trash-o"></i>&nbsp;关闭订单
                             </button>
                         </div>
-                        <br>
                         <table id="jqGrid" class="table table-bordered">
                         </table>
                         <div id="jqGridPager"></div>
@@ -51,55 +65,58 @@
                 </div>
             </div><!-- /.container-fluid -->
         </div>
-        <!-- /.content -->
         <div class="content">
             <!-- 模态框（Modal） -->
-            <div class="modal fade" id="carouselModal" tabindex="-1" role="dialog"
-                 aria-labelledby="carouselModalLabel">
+            <div class="modal fade" id="orderInfoModal" tabindex="-1" role="dialog"
+                 aria-labelledby="orderInfoModalLabel">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                     aria-hidden="true">&times;</span></button>
-                            <h6 class="modal-title" id="carouselModalLabel">Modal</h6>
+                            <h6 class="modal-title" id="orderInfoModalLabel">Modal</h6>
                         </div>
                         <div class="modal-body">
-                            <form id="indexConfigForm">
+                            <form id="##">
                                 <div class="form-group">
                                     <div class="alert alert-danger" id="edit-error-msg" style="display: none;">
                                         错误信息展示栏。
                                     </div>
                                 </div>
+                                <input type="hidden" id="orderId">
                                 <div class="form-group">
-                                    <div class="col-sm-4">
-                                        <img id="carouselImg" src="/admin/dist/img/img-upload.png"
-                                             style="height: 64px;width: 64px;">
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="form-group">
-                                    <div class="col-sm-4">
-                                        <button class="btn btn-info" style="margin-bottom: 5px;"
-                                                id="uploadCarouselImage">
-                                            <i class="fa fa-picture-o"></i>&nbsp;上传轮播图
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="redirectUrl" class="control-label">跳转链接:</label>
-                                    <input type="text" class="form-control" id="redirectUrl" name="redirectUrl"
-                                           placeholder="请输入跳转链接" value="##">
-                                </div>
-                                <div class="form-group">
-                                    <label for="carouselRank" class="control-label">排序值:</label>
-                                    <input type="number" class="form-control" id="carouselRank" name="carouselRank"
-                                           placeholder="请输入排序值">
+                                    <label for="totalPrice" class="control-label">订单价格:&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                    <input type="number" class="form-control" id="totalPrice" name="totalPrice"
+                                           placeholder="请输入改价金额" required="true">
                                 </div>
                             </form>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                             <button type="button" class="btn btn-primary" id="saveButton">确认</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal -->
+        </div>
+        <div class="content">
+            <!-- 模态框（Modal） -->
+            <div class="modal fade" id="orderItemModal" tabindex="-1" role="dialog"
+                 aria-labelledby="orderItemModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <h6 class="modal-title" id="orderItemModalLabel">Modal</h6>
+                        </div>
+                        <div class="modal-body">
+                            <form id="##">
+                                <div class="form-group">
+                                    <label id="orderItemString" class="control-label"></label>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -122,11 +139,10 @@
 <!-- jqgrid -->
 <script th:src="@{/admin/plugins/jqgrid-5.3.0/jquery.jqGrid.min.js}"></script>
 <script th:src="@{/admin/plugins/jqgrid-5.3.0/grid.locale-cn.js}"></script>
+<script th:src="@{/admin/plugins/jqgrid-5.3.0/grid.locale-cn.js}"></script>
 <!-- sweetalert -->
 <script th:src="@{/admin/plugins/sweetalert/sweetalert.min.js}"></script>
-<!-- ajaxupload -->
-<script th:src="@{/admin/plugins/ajaxupload/ajaxupload.js}"></script>
 <script th:src="@{/admin/dist/js/public.js}"></script>
-<script th:src="@{/admin/dist/js/newbee_mall_carousel.js}"></script>
+<script th:src="@{/admin/dist/js/mall_order.js}"></script>
 </body>
 </html>

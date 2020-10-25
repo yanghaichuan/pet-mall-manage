@@ -26,7 +26,7 @@ public class PetMallUserController {
     @GetMapping("/users")
     public String usersPage(HttpServletRequest request) {
         request.setAttribute("path", "users");
-        return "admin/newbee_mall_user";
+        return "admin/mall_user";
     }
 
     /**
