@@ -75,4 +75,9 @@ public class PetMallCategoryServiceImpl implements PetMallCategoryService {
     public List<GoodsCategory> selectByLevelAndParentIdsAndNumber(List<Long> parentIds, int categoryLevel) {
         return goodsCategoryMapper.selectByLevelAndParentIdsAndNumber(parentIds, categoryLevel, 0);//0代表查询所有
     }
+
+    @Override
+    public List<GoodsCategory> selectCategoryList() {
+        return goodsCategoryMapper.selectCategoryList();
+    }
 }

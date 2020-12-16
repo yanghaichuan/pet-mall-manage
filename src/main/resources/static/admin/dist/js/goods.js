@@ -69,10 +69,33 @@ $(function () {
  * jqGrid重新加载
  */
 function reload() {
-    initFlatPickr();
+    debugger
+    var postData = $("#jqGrid").jqGrid("getGridParam", "postData");
+
+    $.each(postData, function (k, v) {
+        delete postData[k];
+    });
+
+    //分页参数
     var page = $("#jqGrid").jqGrid('getGridParam', 'page');
-    $("#jqGrid").jqGrid('setGridParam', {
-        page: page
+    var params = {};
+
+    //查询参数
+    var t = $('#searchForm').serializeArray();
+    $.each(t, function() {
+        if(this.value){
+            params[this.name] = this.value;
+        }
+    });
+
+    var b = $.isEmptyObject(params);
+    if(!b && page>1){
+        page=1;
+    }
+
+    $("#jqGrid").jqGrid('setGridParam',{
+        postData:params,
+        page:page
     }).trigger("reloadGrid");
 }
 

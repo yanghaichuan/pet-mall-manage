@@ -32,4 +32,6 @@ public interface PetMallCategoryService {
      * @return
      */
     List<GoodsCategory> selectByLevelAndParentIdsAndNumber(List<Long> parentIds, int categoryLevel);
+
+    List<GoodsCategory> selectCategoryList();
 }

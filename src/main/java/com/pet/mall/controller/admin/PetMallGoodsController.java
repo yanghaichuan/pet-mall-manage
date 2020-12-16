@@ -38,6 +38,7 @@ public class PetMallGoodsController {
     @GetMapping("/goods")
     public String goodsPage(HttpServletRequest request) {
         request.setAttribute("path", "goods");
+        request.setAttribute("categoryList", petMallCategoryService.selectCategoryList());
         return "admin/goods";
     }
 
